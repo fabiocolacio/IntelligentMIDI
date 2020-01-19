@@ -1,7 +1,8 @@
-# IntelligentMIDI
-
-This is a supercool project involving MIDI and Machine Learning.
-
-Hello
-
-Super cool
+Rose Hack 2020 Project:
+    Midi-Tunes 
+        The miniature keyboard of your dreams!
+    
+    Design by:
+        Fabio Colacio
+        Vincent Le
+        Kathryn Hammar
