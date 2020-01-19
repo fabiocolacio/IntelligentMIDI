@@ -8,10 +8,13 @@
   7 total pins necessary, pins are pulled high until pressed 
 
 */
-
+ const int MAX_Y = 1024;
  const byte ROWS = 3;
  const byte COLS = 4;
  int octave[] = {13,12,11,10,9};
+
+byte recording[1024];
+int recLen = 0;
  
  int joyPin1 = 0;                 // slider variable connecetd to analog pin 0
  int joyPin2 = 1;                 // slider variable connecetd to analog pin 1
@@ -49,7 +52,6 @@ void keyUp (const char which)
 void check_X_Direct()
 {
   value1 = analogRead(joyPin1);
-  
   if((treatValue(value1)< midVal) && (keys[1][3] > 48) && (isCentered == true)){
     isCentered = false;
     digitalWrite(octave[curLED], LOW);
@@ -80,12 +82,7 @@ void check_X_Direct()
 void check_Y_Direct()
 {
   value2 = analogRead(joyPin2);
-    if(treatValue(value2)< midVal){
-    
-    }
-    else if(treatValue(value2)> midVal){
-    
-    } 
+  midi_pitch_bend(0, treatValueY(value2));
 }
 
 void setup() 
@@ -104,8 +101,16 @@ void setup()
 }
 
 int treatValue(int data) {
-  return (data * 9 / 1024) + 48;
+  return (data * 9 / 1024)+ 48;
  }
+int treatValueY(int data) {
+  data = MAX_Y - data;
+  data =(16384*data/MAX_Y);
+  if (data == 8128){
+    return 8192;
+  }
+  return data;
+}
  
 void loop() 
 {
